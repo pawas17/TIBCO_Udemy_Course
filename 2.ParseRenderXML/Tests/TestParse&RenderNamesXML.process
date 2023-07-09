@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Context" xmlns:pfx2="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/SharedProcesses/ParseRenderCatalogXMLRequest" xmlns:ns="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/SharedProcesses/WriteToFileRequest" xmlns:pfx3="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Commons/Header" xmlns:pfx4="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Commons/Context" xmlns:pfx5="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderNamesXMLRequest" xmlns:ns2="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns1="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderNamesXMLResponse" xmlns:ns4="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderCatalogXMLRequest" xmlns:ns3="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/SharedProcesses/WriteToFileRequest" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns5="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:pd="http://xmlns.tibco.com/bw/process/2003">
+    <pd:name>Tests/TestParse&amp;RenderNamesXML.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>120</pd:startX>
+    <pd:startY>88</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>515</pd:endX>
+    <pd:endY>88</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1688866800467</pd:targetNamespace>
+    <pd:activity name="Parse&amp;RenderNamesXML">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>250</pd:x>
+        <pd:y>87</pd:y>
+        <config>
+            <processName>/Processes/Services/Parse&amp;RenderNamesXML.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx5:ParseRenderNamesXMLRequest>
+                <pfx3:Header>
+                    <pfx4:Context>
+                        <pfx4:correlationId>
+                            <xsl:value-of select="&quot;12345&quot;"/>
+                        </pfx4:correlationId>
+                    </pfx4:Context>
+                    <pfx3:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx3:timestamp>
+                </pfx3:Header>
+                <pfx5:Body>
+                    <pfx5:sourcePath>
+                        <xsl:value-of select="&quot;E:\Tibco Learning\TIBCO_Udemy_Course\Files\Input\&quot;"/>
+                    </pfx5:sourcePath>
+                    <pfx5:sourcePathFileName>
+                        <xsl:value-of select="&quot;Names.xml&quot;"/>
+                    </pfx5:sourcePathFileName>
+                </pfx5:Body>
+            </pfx5:ParseRenderNamesXMLRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Write File">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>388</pd:x>
+        <pd:y>85</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+        </config>
+        <pd:inputBindings>
+            <ns5:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="concat('E:\Tibco Learning\TIBCO_Udemy_Course\Files\Output\names', '.xml')"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="tib:render-xml($ParseRenderNamesXML/ns1:ParseRenderNamesXMLResponse)"/>
+                </textContent>
+            </ns5:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse&amp;RenderNamesXML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse&amp;RenderNamesXML</pd:from>
+        <pd:to>Write File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Write File</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

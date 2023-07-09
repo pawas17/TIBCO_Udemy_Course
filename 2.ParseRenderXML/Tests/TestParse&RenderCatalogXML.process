@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Context" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/SharedProcesses/ParseRenderCatalogXMLRequest" xmlns:ns="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/SharedProcesses/WriteToFileRequest" xmlns:pfx3="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Commons/Header" xmlns:pfx4="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Commons/Context" xmlns:ns2="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:ns4="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderCatalogXMLRequest" xmlns:ns3="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/SharedProcesses/WriteToFileRequest">
+    <pd:name>Tests/TestParse&amp;RenderCatalogXML.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>120</pd:startX>
+    <pd:startY>88</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>515</pd:endX>
+    <pd:endY>88</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1688866800467</pd:targetNamespace>
+    <pd:activity name="Parse&amp;RenderCatalogXML">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>309</pd:x>
+        <pd:y>88</pd:y>
+        <config>
+            <processName>/Processes/Services/Parse&amp;RenderCatalogXML.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns4:ParseRenderCatalogXMLRequest>
+                <pfx3:Header>
+                    <pfx4:Context>
+                        <pfx4:correlationId>
+                            <xsl:value-of select="&quot;12345&quot;"/>
+                        </pfx4:correlationId>
+                    </pfx4:Context>
+                    <pfx3:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx3:timestamp>
+                </pfx3:Header>
+                <ns4:Body>
+                    <ns4:sourcePath>
+                        <xsl:value-of select="&quot;E:\Tibco Learning\TIBCO_Udemy_Course\Files\Input&quot;"/>
+                    </ns4:sourcePath>
+                    <ns4:sourcePathFileName>
+                        <xsl:value-of select="&quot;\Catalog1.xml&quot;"/>
+                    </ns4:sourcePathFileName>
+                </ns4:Body>
+            </ns4:ParseRenderCatalogXMLRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse&amp;RenderCatalogXML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse&amp;RenderCatalogXML</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>
