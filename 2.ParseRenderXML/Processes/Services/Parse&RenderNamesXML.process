@@ -32,8 +32,8 @@
     </pd:returnBindings>
     <pd:endName>End</pd:endName>
     <pd:endType ref="pfx9:ParseRenderNamesXMLResponse"/>
-    <pd:endX>953</pd:endX>
-    <pd:endY>88</pd:endY>
+    <pd:endX>954</pd:endX>
+    <pd:endY>89</pd:endY>
     <pd:errorSchemas/>
     <pd:processVariables/>
     <pd:targetNamespace>http://xmlns.example.com/1688886577492</pd:targetNamespace>
