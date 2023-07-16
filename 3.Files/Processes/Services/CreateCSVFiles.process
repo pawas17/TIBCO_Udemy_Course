@@ -16,7 +16,7 @@
     <pd:activity name="Create CSV file with Header">
         <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
         <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
-        <pd:x>383</pd:x>
+        <pd:x>384</pd:x>
         <pd:y>152</pd:y>
         <config>
             <encoding>text</encoding>
@@ -66,7 +66,7 @@
     <pd:activity name="Sample Users Data">
         <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
         <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
-        <pd:x>521</pd:x>
+        <pd:x>520</pd:x>
         <pd:y>144</pd:y>
         <config>
             <element>
@@ -83,7 +83,7 @@
             <root>
                 <ns:Users>
                     <ns:Id>
-                        <xsl:value-of select="'1&#x9;'"/>
+                        <xsl:value-of select="'1'"/>
                     </ns:Id>
                     <ns:firstName>
                         <xsl:value-of select="'Nelson'"/>
@@ -186,7 +186,7 @@
             <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
             <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
             <pd:x>734</pd:x>
-            <pd:y>141</pd:y>
+            <pd:y>142</pd:y>
             <config>
                 <ParseSharedConfig>/Resources/CSV/Data Format.sharedparse</ParseSharedConfig>
             </config>

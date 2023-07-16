@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BWSharedResource xmlns:pfx="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Users" xmlns:pfx2="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Orders" xmlns:pfx3="http://www.tibco.com/ns/no_namespace_schema_location/Resources/CSV/Data-Format-Orders.sharedparse">
+    <import namespace="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Users" schemaLocation="/Resources/Schemas/Models/Users.xsd"/>
+    <import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Resources/CSV/Data-Format-Orders.sharedparse" schemaLocation="/Resources/CSV/Data-Format-Orders.sharedparse"/>
+    <import namespace="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Orders" schemaLocation="/Resources/Schemas/Models/Orders.xsd"/>
+    <name>Data-Format-Orders</name>
+    <resourceType>ae.shared.ParseSharedResource</resourceType>
+    <config xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+        <FormatType>Delimiter separated</FormatType>
+        <ColumnSeparator>,</ColumnSeparator>
+        <ColSeparatorRule>Treat all characters as entered as a single column separator string</ColSeparatorRule>
+        <LineSeparator>
+</LineSeparator>
+        <FillCharacter>Space</FillCharacter>
+        <LineLength>1</LineLength>
+        <DataFormat ref="pfx2:Order"/>
+    </config>
+</BWSharedResource>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<BWSharedResource xmlns:pfx="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Users">
+<BWSharedResource xmlns:pfx="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Users" xmlns:pfx2="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Orders">
+    <import namespace="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Orders" schemaLocation="/Resources/Schemas/Models/Orders.xsd"/>
     <import namespace="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Users" schemaLocation="/Resources/Schemas/Models/Users.xsd"/>
     <name>Data Format</name>
     <resourceType>ae.shared.ParseSharedResource</resourceType>
