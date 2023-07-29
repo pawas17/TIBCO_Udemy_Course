@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx6="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Commons/Response" xmlns:pfx="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/WriteFileRequest.xsd" xmlns:pfx2="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/WriteFileResponse" xmlns:ns="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:pfx3="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Commons/Context" xmlns:pfx4="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Services/WriteFileRequest.xsd" xmlns:pfx5="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Services/WriteFileResponse" xmlns:ns2="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Commons/Response" xmlns:ns1="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Commons/Header" xmlns:ns4="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Commons/Context" xmlns:ns3="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Commons/Header" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pd="http://xmlns.tibco.com/bw/process/2003">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Services/WriteFileRequest.xsd" schemaLocation="/Resources/Schemas/Services/WriteFileRequest.xsd"/>
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Services/WriteFileResponse" schemaLocation="/Resources/Schemas/Services/WriteFileResponse.xsd"/>
+    <pd:name>Processes/SharedProcesses/WriteFile.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx4:ParseRenderCatalogXMLRequest"/>
+    <pd:startX>161</pd:startX>
+    <pd:startY>122</pd:startY>
+    <pd:returnBindings>
+        <pfx5:WriteFileResponse>
+            <ns3:Header>
+                <ns4:Context>
+                    <ns4:correlationId>
+                        <xsl:value-of select="&quot;12345&quot;"/>
+                    </ns4:correlationId>
+                </ns4:Context>
+                <ns3:timestamp>
+                    <xsl:value-of select="current-dateTime()"/>
+                </ns3:timestamp>
+            </ns3:Header>
+            <pfx5:Body>
+                <pfx6:Response>
+                    <pfx6:message>
+                        <xsl:value-of select="&quot;file has been created&quot;"/>
+                    </pfx6:message>
+                    <pfx6:responseStatus>
+                        <xsl:value-of select="&quot;SUCCESS&quot;"/>
+                    </pfx6:responseStatus>
+                    <pfx6:data>
+                        <xsl:copy-of select="$Write-File/ns:WriteActivityOutputClass/fileInfo"/>
+                    </pfx6:data>
+                </pfx6:Response>
+            </pfx5:Body>
+        </pfx5:WriteFileResponse>
+    </pd:returnBindings>
+    <pd:endName>End</pd:endName>
+    <pd:endType ref="pfx5:WriteFileResponse"/>
+    <pd:endX>483</pd:endX>
+    <pd:endY>122</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1689344238644</pd:targetNamespace>
+    <pd:activity name="Write File">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>311</pd:x>
+        <pd:y>122</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+            <append>true</append>
+        </config>
+        <pd:inputBindings>
+            <ns:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="concat($Start/pfx4:ParseRenderCatalogXMLRequest/pfx4:Body/pfx4:sourcePath,$Start/pfx4:ParseRenderCatalogXMLRequest/pfx4:Body/pfx4:sourcePathFileName)"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$Start/pfx4:ParseRenderCatalogXMLRequest/pfx4:Body/pfx4:message"/>
+                </textContent>
+            </ns:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Write File</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Write File</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

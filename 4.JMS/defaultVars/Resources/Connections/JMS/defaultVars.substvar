@@ -1,0 +1,29 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<repository xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance" xmlns = "http://www.tibco.com/xmlns/repo/types/2002">
+	<globalVariables>
+		<globalVariable>
+			<name>CopyUsersQueue</name>
+			<value>Q.CopyUsersToTargetFolder</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1690617826785</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>ProcessFilesTopic</name>
+			<value>T.ProcessFilesTopic</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1690617826796</modTime>
+		</globalVariable>
+		<globalVariable>
+			<name>UsersQueue</name>
+			<value>Q.MoveUsersToTargetFolder</value>
+			<deploymentSettable>true</deploymentSettable>
+			<serviceSettable>false</serviceSettable>
+			<type>String</type>
+			<modTime>1690617826816</modTime>
+		</globalVariable>
+	</globalVariables>
+</repository>

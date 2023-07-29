@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/ns/no_namespace_schema_location/Resources/CSV/Data Format.sharedparse" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Order" xmlns:ns="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Users" xmlns:pfx3="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/ShipInfo" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:ns2="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns3="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Orders">
+    <xsd:import namespace="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Users" schemaLocation="/Resources/Schemas/Models/Users.xsd"/>
+    <xsd:import namespace="http://www.tibco.com/ns/no_namespace_schema_location/Resources/CSV/Data Format.sharedparse" schemaLocation="/Resources/CSV/Data Format.sharedparse"/>
+    <xsd:import namespace="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Models/Orders" schemaLocation="/Resources/Schemas/Models/Orders.xsd"/>
+    <pd:name>Processes/Services/CreateCSVFiles-Assignment3.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>100</pd:startX>
+    <pd:startY>140</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>1066</pd:endX>
+    <pd:endY>147</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1689511587924</pd:targetNamespace>
+    <pd:activity name="Create CSV file with Header">
+        <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+        <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+        <pd:x>384</pd:x>
+        <pd:y>152</pd:y>
+        <config>
+            <encoding>text</encoding>
+            <compressFile>None</compressFile>
+        </config>
+        <pd:inputBindings>
+            <ns2:WriteActivityInputTextClass>
+                <fileName>
+                    <xsl:value-of select="&quot;E:\Tibco Learning\TIBCO_Udemy_Course\4.Files\Files\Input\Orders.csv&quot;"/>
+                </fileName>
+                <textContent>
+                    <xsl:value-of select="$Create-Header-Data/Text"/>
+                </textContent>
+            </ns2:WriteActivityInputTextClass>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Create Header Data">
+        <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+        <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+        <pd:x>238</pd:x>
+        <pd:y>143</pd:y>
+        <config>
+            <ParseSharedConfig>/Resources/CSV/Data-Format-Orders.sharedparse</ParseSharedConfig>
+        </config>
+        <pd:inputBindings>
+            <Rows>
+                <ns3:Order>
+                    <pfx2:Order>
+                        <pfx2:CustomerID>
+                            <xsl:value-of select="concat(&quot;&quot;,'CUSTOMERID',&quot;&quot;)"/>
+                        </pfx2:CustomerID>
+                        <pfx2:EmployeeID>
+                            <xsl:value-of select="concat(&quot;&quot;,'EMPLOYEEID',&quot;&quot;)"/>
+                        </pfx2:EmployeeID>
+                        <pfx2:OrderDate>
+                            <xsl:value-of select="tib:create-dateTime(2023, 07,16, 20, 28, 50)"/>
+                        </pfx2:OrderDate>
+                        <pfx2:RequiredDate>
+                            <xsl:value-of select="tib:create-dateTime(2023, 07,16, 20, 28, 50)"/>
+                        </pfx2:RequiredDate>
+                        <pfx3:ShipInfo>
+                            <pfx3:ShipVia>
+                                <xsl:value-of select="concat(&quot;&quot;,'SHIPVIA',&quot;&quot;)"/>
+                            </pfx3:ShipVia>
+                            <pfx3:Freight>
+                                <xsl:value-of select="4.42"/>
+                            </pfx3:Freight>
+                            <pfx3:ShipName>
+                                <xsl:value-of select="concat(&quot;&quot;,'SHIPNAME',&quot;&quot;)"/>
+                            </pfx3:ShipName>
+                            <pfx3:ShipAddress>
+                                <xsl:value-of select="concat(&quot;&quot;,'SHIPADDRESS',&quot;&quot;)"/>
+                            </pfx3:ShipAddress>
+                            <pfx3:ShipCity>
+                                <xsl:value-of select="concat(&quot;&quot;,'SHIPCITY',&quot;&quot;)"/>
+                            </pfx3:ShipCity>
+                            <pfx3:ShipRegion>
+                                <xsl:value-of select="concat(&quot;&quot;,'SHIPREGION',&quot;&quot;)"/>
+                            </pfx3:ShipRegion>
+                            <pfx3:ShipPostalCode>
+                                <xsl:value-of select="421601"/>
+                            </pfx3:ShipPostalCode>
+                            <pfx3:ShipCountry>
+                                <xsl:value-of select="concat(&quot;&quot;,'SHIPCOUNTRY',&quot;&quot;)"/>
+                            </pfx3:ShipCountry>
+                        </pfx3:ShipInfo>
+                    </pfx2:Order>
+                </ns3:Order>
+            </Rows>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Sample Orders Data">
+        <pd:type>com.tibco.plugin.mapper.MapperActivity</pd:type>
+        <pd:resourceType>ae.activities.MapperActivity</pd:resourceType>
+        <pd:x>522</pd:x>
+        <pd:y>146</pd:y>
+        <config>
+            <element>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element ref="ns3:Order" minOccurs="0" maxOccurs="unbounded"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </element>
+        </config>
+        <pd:inputBindings>
+            <root>
+                <ns3:Order>
+                    <pfx2:Order>
+                        <pfx2:CustomerID>
+                            <xsl:value-of select="'GREAL'"/>
+                        </pfx2:CustomerID>
+                        <pfx2:EmployeeID>
+                            <xsl:value-of select="'5'"/>
+                        </pfx2:EmployeeID>
+                        <pfx2:OrderDate>
+                            <xsl:value-of select="tib:create-dateTime(2023, 07,16, 20, 28, 50)"/>
+                        </pfx2:OrderDate>
+                        <pfx2:RequiredDate>
+                            <xsl:value-of select="tib:create-dateTime(2023, 07,16, 20, 28, 50)"/>
+                        </pfx2:RequiredDate>
+                        <pfx3:ShipInfo>
+                            <pfx3:ShipVia>
+                                <xsl:value-of select="'6'"/>
+                            </pfx3:ShipVia>
+                            <pfx3:Freight>
+                                <xsl:value-of select="3.35"/>
+                            </pfx3:Freight>
+                            <pfx3:ShipName>
+                                <xsl:value-of select="'Great Lakes Food Market'"/>
+                            </pfx3:ShipName>
+                            <pfx3:ShipAddress>
+                                <xsl:value-of select="'2732 Baker Blvd.'"/>
+                            </pfx3:ShipAddress>
+                            <pfx3:ShipCity>
+                                <xsl:value-of select="'Eugene'"/>
+                            </pfx3:ShipCity>
+                            <pfx3:ShipRegion>
+                                <xsl:value-of select="'OR'"/>
+                            </pfx3:ShipRegion>
+                            <pfx3:ShipPostalCode>
+                                <xsl:value-of select="97403"/>
+                            </pfx3:ShipPostalCode>
+                            <pfx3:ShipCountry>
+                                <xsl:value-of select="'USA'"/>
+                            </pfx3:ShipCountry>
+                        </pfx3:ShipInfo>
+                    </pfx2:Order>
+                    <pfx2:Order>
+                        <pfx2:CustomerID>
+                            <xsl:value-of select="'GREAL'"/>
+                        </pfx2:CustomerID>
+                        <pfx2:EmployeeID>
+                            <xsl:value-of select="'2'"/>
+                        </pfx2:EmployeeID>
+                        <pfx2:OrderDate>
+                            <xsl:value-of select="tib:create-dateTime(2023, 07,16, 20, 28, 50)"/>
+                        </pfx2:OrderDate>
+                        <pfx2:RequiredDate>
+                            <xsl:value-of select="tib:create-dateTime(2023, 07,16, 20, 28, 50)"/>
+                        </pfx2:RequiredDate>
+                        <pfx3:ShipInfo>
+                            <pfx3:ShipVia>
+                                <xsl:value-of select="'2'"/>
+                            </pfx3:ShipVia>
+                            <pfx3:Freight>
+                                <xsl:value-of select="4.42"/>
+                            </pfx3:Freight>
+                            <pfx3:ShipName>
+                                <xsl:value-of select="'Great Lakes Food Market'"/>
+                            </pfx3:ShipName>
+                            <pfx3:ShipAddress>
+                                <xsl:value-of select="'2732 Baker Blvd.'"/>
+                            </pfx3:ShipAddress>
+                            <pfx3:ShipCity>
+                                <xsl:value-of select="'Eugene'"/>
+                            </pfx3:ShipCity>
+                            <pfx3:ShipRegion>
+                                <xsl:value-of select="'OR'"/>
+                            </pfx3:ShipRegion>
+                            <pfx3:ShipPostalCode>
+                                <xsl:value-of select="97403"/>
+                            </pfx3:ShipPostalCode>
+                            <pfx3:ShipCountry>
+                                <xsl:value-of select="'USA'"/>
+                            </pfx3:ShipCountry>
+                        </pfx3:ShipInfo>
+                    </pfx2:Order>
+                </ns3:Order>
+            </root>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:group name="Group">
+        <pd:type>com.tibco.pe.core.LoopGroup</pd:type>
+        <pd:resourceType>ae.process.group</pd:resourceType>
+        <pd:x>607</pd:x>
+        <pd:y>48</pd:y>
+        <pd:width>355</pd:width>
+        <pd:height>177</pd:height>
+        <pd:collapsedWidth>57</pd:collapsedWidth>
+        <pd:collapsedHeight>70</pd:collapsedHeight>
+        <pd:groupVariables/>
+        <pd:joinToggle>inherit</pd:joinToggle>
+        <config>
+            <pd:groupType>inputLoop</pd:groupType>
+            <pd:serializable>false</pd:serializable>
+            <pd:over>$Sample-Orders-Data/root/ns3:Order/pfx2:Order</pd:over>
+            <pd:iterationElementSlot>currentRow</pd:iterationElementSlot>
+            <pd:indexSlot>index</pd:indexSlot>
+            <pd:activityOutputName/>
+            <pd:accumulateOutput>false</pd:accumulateOutput>
+        </config>
+        <pd:inputBindings/>
+        <pd:expanded>true</pd:expanded>
+        <pd:transition>
+            <pd:from>start</pd:from>
+            <pd:to>Render current Row User Data</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Append User Row in CSV file</pd:from>
+            <pd:to>end</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:transition>
+            <pd:from>Render current Row User Data</pd:from>
+            <pd:to>Append User Row in CSV file</pd:to>
+            <pd:lineType>Default</pd:lineType>
+            <pd:lineColor>-16777216</pd:lineColor>
+            <pd:conditionType>always</pd:conditionType>
+        </pd:transition>
+        <pd:activity name="Append User Row in CSV file">
+            <pd:type>com.tibco.plugin.file.FileWriteActivity</pd:type>
+            <pd:resourceType>ae.activities.FileWriteActivity</pd:resourceType>
+            <pd:x>866</pd:x>
+            <pd:y>151</pd:y>
+            <config>
+                <encoding>text</encoding>
+                <compressFile>None</compressFile>
+                <append>true</append>
+            </config>
+            <pd:inputBindings>
+                <ns2:WriteActivityInputTextClass>
+                    <fileName>
+                        <xsl:value-of select="&quot;E:\Tibco Learning\TIBCO_Udemy_Course\4.Files\Files\Input\Orders.csv&quot;"/>
+                    </fileName>
+                    <textContent>
+                        <xsl:value-of select="$Render-current-Row-User-Data/Text"/>
+                    </textContent>
+                </ns2:WriteActivityInputTextClass>
+            </pd:inputBindings>
+        </pd:activity>
+        <pd:activity name="Render current Row User Data">
+            <pd:type>com.tibco.plugin.parse.RenderActivity</pd:type>
+            <pd:resourceType>ae.activities.RenderActivity</pd:resourceType>
+            <pd:x>737</pd:x>
+            <pd:y>148</pd:y>
+            <config>
+                <ParseSharedConfig>/Resources/CSV/Data-Format-Orders.sharedparse</ParseSharedConfig>
+            </config>
+            <pd:inputBindings>
+                <Rows>
+                    <ns3:Order>
+                        <pfx2:Order>
+                            <pfx2:CustomerID>
+                                <xsl:value-of select="concat(&quot;&quot;,$currentRow/pfx2:Order/pfx2:CustomerID,&quot;&quot;)"/>
+                            </pfx2:CustomerID>
+                            <pfx2:EmployeeID>
+                                <xsl:value-of select="concat(&quot;&quot;,$currentRow/pfx2:Order/pfx2:EmployeeID,&quot;&quot;)"/>
+                            </pfx2:EmployeeID>
+                            <pfx2:OrderDate>
+                                <xsl:value-of select="tib:create-dateTime(2023, 07, 16, 21, 04, 40)"/>
+                            </pfx2:OrderDate>
+                            <pfx2:RequiredDate>
+                                <xsl:value-of select="tib:create-dateTime(2023, 07, 16, 21, 04, 40)"/>
+                            </pfx2:RequiredDate>
+                            <pfx3:ShipInfo>
+                                <pfx3:ShipVia>
+                                    <xsl:value-of select="concat(&quot;&quot;,$currentRow/pfx2:Order/pfx3:ShipInfo/pfx3:ShipVia,&quot;&quot;)"/>
+                                </pfx3:ShipVia>
+                                <pfx3:Freight>
+                                    <xsl:value-of select="3.35"/>
+                                </pfx3:Freight>
+                                <pfx3:ShipName>
+                                    <xsl:value-of select="concat(&quot;&quot;,$currentRow/pfx2:Order/pfx3:ShipInfo/pfx3:ShipName,&quot;&quot;)"/>
+                                </pfx3:ShipName>
+                                <pfx3:ShipAddress>
+                                    <xsl:value-of select="concat(&quot;&quot;,$currentRow/pfx2:Order/pfx3:ShipInfo/pfx3:ShipAddress,&quot;&quot;)"/>
+                                </pfx3:ShipAddress>
+                                <pfx3:ShipCity>
+                                    <xsl:value-of select="concat(&quot;&quot;,$currentRow/pfx2:Order/pfx3:ShipInfo/pfx3:ShipCity,&quot;&quot;)"/>
+                                </pfx3:ShipCity>
+                                <pfx3:ShipRegion>
+                                    <xsl:value-of select="concat(&quot;&quot;,$currentRow/pfx2:Order/pfx3:ShipInfo/pfx3:ShipRegion,&quot;&quot;)"/>
+                                </pfx3:ShipRegion>
+                                <pfx3:ShipPostalCode>
+                                    <xsl:value-of select="concat(&quot;&quot;,$currentRow/pfx2:Order/pfx3:ShipInfo/pfx3:ShipPostalCode,&quot;&quot;)"/>
+                                </pfx3:ShipPostalCode>
+                                <pfx3:ShipCountry>
+                                    <xsl:value-of select="concat(&quot;&quot;,$currentRow/pfx2:Order/pfx3:ShipInfo/pfx3:ShipCountry,&quot;&quot;)"/>
+                                </pfx3:ShipCountry>
+                            </pfx3:ShipInfo>
+                        </pfx2:Order>
+                    </ns3:Order>
+                </Rows>
+            </pd:inputBindings>
+        </pd:activity>
+    </pd:group>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Create Header Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Create Header Data</pd:from>
+        <pd:to>Create CSV file with Header</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Create CSV file with Header</pd:from>
+        <pd:to>Sample Orders Data</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Sample Orders Data</pd:from>
+        <pd:to>Group</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Group</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>
