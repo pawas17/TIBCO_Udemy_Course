@@ -66,7 +66,7 @@
             <pd:type>com.tibco.plugin.jms.JMSTopicPublishActivity</pd:type>
             <pd:resourceType>ae.activities.JMSTopicPublishActivity</pd:resourceType>
             <pd:x>629</pd:x>
-            <pd:y>167</pd:y>
+            <pd:y>169</pd:y>
             <config>
                 <PermittedMessageType>XML Text</PermittedMessageType>
                 <SessionAttributes>
