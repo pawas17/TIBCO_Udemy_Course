@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DataDefinition>
+    <Element>
+	    <source>
+	        <sourcePath>E:\Tibco Learning\TIBCO_Udemy_Course\4.JMS\Files\Input\Portugal\</sourcePath>
+		    <sourceFilePattern>*</sourceFilePattern>
+		</source>
+		<target>
+		    <targetPath>E:\Tibco Learning\TIBCO_Udemy_Course\4.JMS\Files\Output\Portugal\</targetPath>
+		</target>
+		<messageSelector>PT</messageSelector>
+	</Element>
+	<Element>
+		<source>
+	        <sourcePath>E:\Tibco Learning\TIBCO_Udemy_Course\4.JMS\Files\Input\Spain\</sourcePath>
+		    <sourceFilePattern>*</sourceFilePattern>
+		</source>
+		<target>
+		    <targetPath>E:\Tibco Learning\TIBCO_Udemy_Course\4.JMS\Files\Output\Spain\</targetPath>
+		</target>
+		<messageSelector>SP</messageSelector>
+	</Element>
+	<Element>
+		<source>
+	        <sourcePath>E:\Tibco Learning\TIBCO_Udemy_Course\4.JMS\Files\Input\Germany\</sourcePath>
+		    <sourceFilePattern>*</sourceFilePattern>
+		</source>
+		<target>
+		    <targetPath>E:\Tibco Learning\TIBCO_Udemy_Course\4.JMS\Files\Output\Germany\</targetPath>
+		</target>
+		<messageSelector>GER</messageSelector>
+	</Element>
+</DataDefinition>
