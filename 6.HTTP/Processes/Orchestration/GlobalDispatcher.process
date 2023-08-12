@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Context" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Orchestration/ProcessCountriesRequest.xsd" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Header" xmlns:ns1="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Services/ProcessCountriesResponse" xmlns:ns3="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Response">
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Context" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Orchestration/ProcessCountriesRequest.xsd" xmlns:ns="http://www.tibco.com/pe/WriteToLogActivitySchema" xmlns:pfx3="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Orchestration/ProcessOrdersRequest" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns2="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Header" xmlns:ns1="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Services/ProcessCountriesResponse" xmlns:ns4="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Services/ProcessOrdersResponse" xmlns:ns3="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Response">
     <xsd:import namespace="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Context" schemaLocation="/Resources/Schemas/Commons/Context.xsd"/>
     <pd:name>Processes/Orchestration/GlobalDispatcher.process</pd:name>
     <pd:startName>HTTP Receiver</pd:startName>
@@ -37,8 +37,8 @@
         <pd:inputBindings/>
     </pd:starter>
     <pd:endName>End</pd:endName>
-    <pd:endX>1044</pd:endX>
-    <pd:endY>152</pd:endY>
+    <pd:endX>1170</pd:endX>
+    <pd:endY>170</pd:endY>
     <pd:errorSchemas/>
     <pd:processVariables>
         <Context ref="pfx:Context"/>
@@ -71,8 +71,8 @@
     <pd:activity name="Send HTTP Response">
         <pd:type>com.tibco.plugin.http.HTTPResponseActivity</pd:type>
         <pd:resourceType>httppalette.httpWebResponse</pd:resourceType>
-        <pd:x>964</pd:x>
-        <pd:y>317</pd:y>
+        <pd:x>1024</pd:x>
+        <pd:y>180</pd:y>
         <config>
             <closeConnection>true</closeConnection>
             <eventSource>HTTP Receiver</eventSource>
@@ -194,8 +194,8 @@
     <pd:activity name="ProcessCountries">
         <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
         <pd:resourceType>ae.process.subprocess</pd:resourceType>
-        <pd:x>807</pd:x>
-        <pd:y>317</pd:y>
+        <pd:x>883</pd:x>
+        <pd:y>182</pd:y>
         <config>
             <processName>/Processes/Initerface/ProcessCountries.process</processName>
         </config>
@@ -226,6 +226,90 @@
                     </xsl:choose>
                 </pfx2:Body>
             </pfx2:ProcessCountriesRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="ProcessOrders">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>806</pd:x>
+        <pd:y>303</pd:y>
+        <config>
+            <processName>/Processes/Initerface/ProcessOrders.process</processName>
+        </config>
+        <pd:inputBindings>
+            <pfx3:ProcessOrdersRequest>
+                <ns2:Header>
+                    <xsl:copy-of select="$Context/pfx:Context"/>
+                    <ns2:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </ns2:timestamp>
+                </ns2:Header>
+                <pfx3:Body>
+                    <pfx3:method>
+                        <xsl:value-of select="$HTTP-Receiver/ProcessStarterOutput/Method"/>
+                    </pfx3:method>
+                    <xsl:if test="$HTTP-Receiver/ProcessStarterOutput/QueryString">
+                        <pfx3:queryParam>
+                            <xsl:value-of select="$HTTP-Receiver/ProcessStarterOutput/QueryString"/>
+                        </pfx3:queryParam>
+                    </xsl:if>
+                    <xsl:choose>
+                        <xsl:when test="string-length($HTTP-Receiver/ProcessStarterOutput/PostData)>0">
+                            <pfx3:data>
+                                <xsl:copy-of select="$HTTP-Receiver/ProcessStarterOutput/PostData"/>
+                            </pfx3:data>
+                        </xsl:when>
+                        <xsl:otherwise/>
+                    </xsl:choose>
+                </pfx3:Body>
+            </pfx3:ProcessOrdersRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:activity name="Send-HTTP-Response-2">
+        <pd:type>com.tibco.plugin.http.HTTPResponseActivity</pd:type>
+        <pd:resourceType>httppalette.httpWebResponse</pd:resourceType>
+        <pd:x>1037</pd:x>
+        <pd:y>301</pd:y>
+        <config>
+            <closeConnection>true</closeConnection>
+            <eventSource>HTTP Receiver</eventSource>
+            <Headers>
+                <xsd:element name="root">
+                    <xsd:complexType>
+                        <xsd:sequence>
+                            <xsd:element name="StatusLine" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Content-Type" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Set-Cookie" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Pragma" type="xsd:string" minOccurs="0"/>
+                            <xsd:element name="Location" type="xsd:string" minOccurs="0"/>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+            </Headers>
+        </config>
+        <pd:inputBindings>
+            <ResponseActivityInput>
+                <xsl:choose xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+                    <xsl:when test="$HTTP-Receiver/ProcessStarterOutput/Method='GET'">
+                        <asciiContent>
+                            <xsl:value-of select="$ProcessOrders/ns4:ProcessOrdersResponse/ns4:Body/ns3:Response/ns3:data/*"/>
+                        </asciiContent>
+                    </xsl:when>
+                    <xsl:otherwise>
+                        <asciiContent>
+                            <xsl:value-of select="$ProcessOrders/ns4:ProcessOrdersResponse/ns4:Body/ns3:Response/ns3:message"/>
+                        </asciiContent>
+                    </xsl:otherwise>
+                </xsl:choose>
+                <Headers>
+                    <StatusLine>
+                        <xsl:value-of select="'HTTP/1.1 200 OK'"/>
+                    </StatusLine>
+                    <Content-Type>
+                        <xsl:value-of select="'text/x*'"/>
+                    </Content-Type>
+                </Headers>
+            </ResponseActivityInput>
         </pd:inputBindings>
     </pd:activity>
     <pd:transition>
@@ -298,6 +382,29 @@
         <pd:from>ProcessCountries</pd:from>
         <pd:to>Send HTTP Response</pd:to>
         <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Variable Resource</pd:from>
+        <pd:to>ProcessOrders</pd:to>
+        <pd:xpathDescription>/Orders</pd:xpathDescription>
+        <pd:lineType>Multiple Bends</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>xpath</pd:conditionType>
+        <pd:xpath>$HTTP-Receiver/ProcessStarterOutput/Command='/Orders'</pd:xpath>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ProcessOrders</pd:from>
+        <pd:to>Send-HTTP-Response-2</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Send-HTTP-Response-2</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>One Bend</pd:lineType>
         <pd:lineColor>-16777216</pd:lineColor>
         <pd:conditionType>always</pd:conditionType>
     </pd:transition>
