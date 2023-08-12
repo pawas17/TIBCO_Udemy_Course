@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Commons/Context" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Commons/Header" xmlns:ns="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/ListReadFilesRequest.xsd" xmlns:pfx3="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Commons/Context" xmlns:pfx4="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Header" xmlns:pfx5="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Context" xmlns:ns2="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Commons/Header" xmlns:ns4="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Services/ListReadFilesRequest.xsd" xmlns:ns3="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Services/ListReadFilesRequest.xsd">
+    <pd:name>Tests/testListFReadFiles.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>450</pd:endX>
+    <pd:endY>64</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1689434270908</pd:targetNamespace>
+    <pd:activity name="ListReadFiles">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>282</pd:x>
+        <pd:y>69</pd:y>
+        <config>
+            <processName>/Processes/Services/ListReadFiles.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns4:ListReadFilesRequest>
+                <pfx4:Header>
+                    <pfx5:Context>
+                        <pfx5:correlationId>
+                            <xsl:value-of select="'12345'"/>
+                        </pfx5:correlationId>
+                    </pfx5:Context>
+                    <pfx4:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx4:timestamp>
+                </pfx4:Header>
+                <ns4:Body>
+                    <ns4:source>
+                        <ns4:sourcePath>
+                            <xsl:value-of select="&quot;E:\Tibco Learning\TIBCO_Udemy_Course\4.JMS\Files\Input\&quot;"/>
+                        </ns4:sourcePath>
+                        <ns4:sourcePathFileName>
+                            <xsl:value-of select="&quot;*&quot;"/>
+                        </ns4:sourcePathFileName>
+                    </ns4:source>
+                    <ns4:target>
+                        <ns4:targetPath>
+                            <xsl:value-of select="&quot;E:\Tibco Learning\TIBCO_Udemy_Course\4.JMS\Files\Output\&quot;"/>
+                        </ns4:targetPath>
+                    </ns4:target>
+                </ns4:Body>
+            </ns4:ListReadFilesRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>ListReadFiles</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ListReadFiles</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

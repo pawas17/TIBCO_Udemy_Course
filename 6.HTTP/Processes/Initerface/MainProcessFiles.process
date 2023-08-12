@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:pfx="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Services/ProcessFilesRequest" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx2="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Services/ProcessFilesRequest" xmlns:ns="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Services/ListReadFilesRequest.xsd" xmlns:ns2="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Header" xmlns:ns1="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Commons/Header" xmlns:ns3="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Services/ListReadFilesRequest.xsd">
+    <xs:import xmlns:xs="http://www.w3.org/2001/XMLSchema" namespace="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Services/ProcessFilesRequest" schemaLocation="/Resources/Schemas/Orchestration/ProcessFilesRequest.xsd"/>
+    <pd:name>Processes/Initerface/MainProcessFiles.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startType ref="pfx2:ProcessFilesRequest"/>
+    <pd:startX>150</pd:startX>
+    <pd:startY>64</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>451</pd:endX>
+    <pd:endY>65</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1690209283964</pd:targetNamespace>
+    <pd:activity name="ListReadFiles">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>288</pd:x>
+        <pd:y>70</pd:y>
+        <config>
+            <processName>/Processes/Services/ListReadFiles.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns3:ListReadFilesRequest>
+                <xsl:copy-of select="$Start/pfx2:ProcessFilesRequest/ns2:Header"/>
+                <ns3:Body>
+                    <ns3:source>
+                        <ns3:sourcePath>
+                            <xsl:value-of select="$Start/pfx2:ProcessFilesRequest/pfx2:Body/pfx2:source/pfx2:sourcePath"/>
+                        </ns3:sourcePath>
+                        <ns3:sourcePathFileName>
+                            <xsl:value-of select="$Start/pfx2:ProcessFilesRequest/pfx2:Body/pfx2:source/pfx2:sourcePathFileName"/>
+                        </ns3:sourcePathFileName>
+                    </ns3:source>
+                    <ns3:target>
+                        <ns3:targetPath>
+                            <xsl:value-of select="$Start/pfx2:ProcessFilesRequest/pfx2:Body/pfx2:target/pfx2:targetPath"/>
+                        </ns3:targetPath>
+                    </ns3:target>
+                </ns3:Body>
+            </ns3:ListReadFilesRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>ListReadFiles</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>ListReadFiles</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

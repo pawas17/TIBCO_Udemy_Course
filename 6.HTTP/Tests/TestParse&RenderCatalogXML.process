@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx6="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Commons/Context" xmlns:pfx7="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Commons/Header" xmlns:pfx8="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Commons/Context" xmlns:pfx="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Context" xmlns:pfx9="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Header" xmlns:pfx2="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/SharedProcesses/ParseRenderCatalogXMLRequest" xmlns:ns="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/SharedProcesses/WriteToFileRequest" xmlns:pfx3="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Commons/Header" xmlns:pfx4="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Commons/Context" xmlns:pfx5="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Commons/Header" xmlns:ns2="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:ns4="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderCatalogXMLRequest" xmlns:ns3="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/SharedProcesses/WriteToFileRequest" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns6="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Services/ParseRenderCatalogXMLRequest" xmlns:ns5="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/ParseRenderCatalogXMLRequest" xmlns:ns7="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Services/ParseRenderCatalogXMLRequest" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx10="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Context">
+    <pd:name>Tests/TestParse&amp;RenderCatalogXML.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>120</pd:startX>
+    <pd:startY>88</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>515</pd:endX>
+    <pd:endY>88</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1688866800467</pd:targetNamespace>
+    <pd:activity name="Parse&amp;RenderCatalogXML">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>311</pd:x>
+        <pd:y>91</pd:y>
+        <config>
+            <processName>/Processes/Services/Parse&amp;RenderCatalogXML.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns7:ParseRenderCatalogXMLRequest>
+                <pfx9:Header>
+                    <pfx10:Context>
+                        <pfx10:correlationId>
+                            <xsl:value-of select="'12345'"/>
+                        </pfx10:correlationId>
+                    </pfx10:Context>
+                    <pfx9:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx9:timestamp>
+                </pfx9:Header>
+                <ns7:Body>
+                    <ns7:sourcePath>
+                        <xsl:value-of select="&quot;E:\Tibco Learning\TIBCO_Udemy_Course\Files\Input&quot;"/>
+                    </ns7:sourcePath>
+                    <ns7:sourcePathFileName>
+                        <xsl:value-of select="&quot;\Catalog1.xml&quot;"/>
+                    </ns7:sourcePathFileName>
+                </ns7:Body>
+            </ns7:ParseRenderCatalogXMLRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse&amp;RenderCatalogXML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse&amp;RenderCatalogXML</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

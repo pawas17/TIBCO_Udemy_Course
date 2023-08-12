@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pd:ProcessDefinition xmlns:pfx6="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderOrdersXMLRequest.xsd" xmlns:pfx7="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Commons/Header" xmlns:pfx8="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Commons/Context" xmlns:pfx="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Context" xmlns:pfx9="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Commons/Header" xmlns:pfx2="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/SharedProcesses/ParseRenderCatalogXMLRequest" xmlns:ns="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/SharedProcesses/WriteToFileRequest" xmlns:pfx3="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Commons/Header" xmlns:pfx4="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Commons/Context" xmlns:pfx5="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderNamesXMLRequest" xmlns:ns2="http://www.tibco.com/schemas/0.ProjectZero/Resources/Schemas/Commons/Header" xmlns:tib="http://www.tibco.com/bw/xslt/custom-functions" xmlns:ns1="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderNamesXMLResponse" xmlns:ns4="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderCatalogXMLRequest" xmlns:ns3="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/SharedProcesses/WriteToFileRequest" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:ns6="http://www.tibco.com/schemas/2.ParseRenderXML/Resources/Schemas/Services/ParseRenderOrdersXMLResponse.xsd" xmlns:ns5="http://www.tibco.com/namespaces/tnt/plugins/file" xmlns:ns8="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Services/ParseRenderOrdersXMLRequest.xsd" xmlns:ns7="http://www.tibco.com/schemas/3.Files/Resources/Schemas/Services/ParseRenderOrdersXMLRequest.xsd" xmlns:ns9="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Services/ParseRenderOrdersXMLRequest.xsd" xmlns:pd="http://xmlns.tibco.com/bw/process/2003" xmlns:pfx11="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Header" xmlns:pfx12="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Commons/Context" xmlns:pfx10="http://www.tibco.com/schemas/4.JMS/Resources/Schemas/Commons/Context">
+    <pd:name>Tests/TestParse&amp;RenderOrdersXML.process</pd:name>
+    <pd:startName>Start</pd:startName>
+    <pd:startX>115</pd:startX>
+    <pd:startY>100</pd:startY>
+    <pd:returnBindings/>
+    <pd:endName>End</pd:endName>
+    <pd:endX>516</pd:endX>
+    <pd:endY>108</pd:endY>
+    <pd:errorSchemas/>
+    <pd:processVariables/>
+    <pd:targetNamespace>http://xmlns.example.com/1688866800467</pd:targetNamespace>
+    <pd:activity name="Parse&amp;RenderOrdersXML">
+        <pd:type>com.tibco.pe.core.CallProcessActivity</pd:type>
+        <pd:resourceType>ae.process.subprocess</pd:resourceType>
+        <pd:x>321</pd:x>
+        <pd:y>99</pd:y>
+        <config>
+            <processName>/Processes/Services/Parse&amp;RenderOrdersXML.process</processName>
+        </config>
+        <pd:inputBindings>
+            <ns9:ParseRenderOrdersXMLRequest>
+                <pfx11:Header>
+                    <pfx12:Context>
+                        <pfx12:correlationId>
+                            <xsl:value-of select="'12345'"/>
+                        </pfx12:correlationId>
+                    </pfx12:Context>
+                    <pfx11:timestamp>
+                        <xsl:value-of select="current-dateTime()"/>
+                    </pfx11:timestamp>
+                </pfx11:Header>
+                <ns9:Body>
+                    <ns9:sourcePath>
+                        <xsl:value-of select="&quot;E:\Tibco Learning\TIBCO_Udemy_Course\4.JMS\Files\Input\&quot;"/>
+                    </ns9:sourcePath>
+                    <ns9:sourcePathFileName>
+                        <xsl:value-of select="&quot;Orders.xml&quot;"/>
+                    </ns9:sourcePathFileName>
+                </ns9:Body>
+            </ns9:ParseRenderOrdersXMLRequest>
+        </pd:inputBindings>
+    </pd:activity>
+    <pd:transition>
+        <pd:from>Start</pd:from>
+        <pd:to>Parse&amp;RenderOrdersXML</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+    <pd:transition>
+        <pd:from>Parse&amp;RenderOrdersXML</pd:from>
+        <pd:to>End</pd:to>
+        <pd:lineType>Default</pd:lineType>
+        <pd:lineColor>-16777216</pd:lineColor>
+        <pd:conditionType>always</pd:conditionType>
+    </pd:transition>
+</pd:ProcessDefinition>

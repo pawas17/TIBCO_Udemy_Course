@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	 xmlns:Catalog="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Models/Catalog"
+	 xmlns:Course="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Models/Course"
+	 xmlns:ns0="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Models/Course"
+	 xmlns:ns1="http://www.tibco.com/schemas/6.HTTPResources/Schemas/Models/Course"
+	 targetNamespace="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Models/Catalog"
+	 elementFormDefault="qualified"
+	 attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.tibco.com/schemas/6.HTTP/Resources/Schemas/Models/Course" schemaLocation="../Models/Course.xsd"/>
+	<xs:element name="Catalog">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="ns0:Course" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
